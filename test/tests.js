@@ -17,8 +17,14 @@ before(function() {
   })
 })
 
+// start
 before(function() {
   page();
+})
+
+// return to / after all tests
+after(function(){
+  page('/');
 })
 
 describe('page', function(){
@@ -195,6 +201,18 @@ describe('page', function(){
   })
 
   describe('page.replace', function() {
+    it('not change history.length', function(done) {
+      var length = history.length;
+
+      page('/replace/x', function(ctx){
+        expect(history.length).to.eq(length);
+        done();
+      });
+      page.replace('/replace/x');
+    })
+  })
+
+  describe('page.replace uri', function() {
     it('replace(uri)', function(done) {
       page('/replace/hello', function(ctx){ done(); });
       page.replace('/replace/hello');
@@ -207,9 +225,5 @@ describe('page', function(){
       });
       page.replace('/replace/user/:id', { id: 2 });
     })
-  })
-
-  after(function(){
-    page('/');
   })
 })
