@@ -121,8 +121,8 @@
 
   page.stop = function(){
     running = false;
-    removeEventListener('click', onclick, false);
-    removeEventListener('popstate', onpopstate, false);
+    window.removeEventListener('click', onclick, false);
+    window.removeEventListener('popstate', onpopstate, false);
   };
 
   /**

@@ -273,4 +273,10 @@ describe('page', function(){
       expect(location.pathname).to.eq('/back/1');
     })
   })
+
+  describe('page.stop', function() {
+    it('should not produce errors', function() {
+      page.stop();
+    })
+  })
 })
