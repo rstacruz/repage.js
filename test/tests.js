@@ -255,4 +255,16 @@ describe('page', function(){
       expect(page.base()).to.eq('/blog');
     })
   })
+
+  describe('page.back', function() {
+    it('goes back', function() {
+      page('/back/1', function() {});
+      page('/back/2', function() {});
+
+      page('/back/1');
+      page('/back/2');
+      page.back();
+      expect(location.pathname).to.eq('/back/1');
+    });
+  })
 })
