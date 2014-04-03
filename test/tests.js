@@ -226,4 +226,33 @@ describe('page', function(){
       page.replace('/replace/user/:id', { id: 2 });
     })
   })
+
+  describe('page.redirect', function() {
+    it('ok', function(done) {
+      page('/redirect/one', function() {
+        page.redirect('/redirect/two');
+      });
+
+      page('/redirect/two', function() {
+        done();
+      });
+
+      page('/redirect/one');
+    })
+  })
+
+  describe('page.base', function() {
+    afterEach(function() {
+      page.base('');
+    });
+
+    it('default to blank', function() {
+      expect(page.base()).to.eq('');
+    });
+
+    it('set and get', function() {
+      page.base('/blog');
+      expect(page.base()).to.eq('/blog');
+    })
+  })
 })
