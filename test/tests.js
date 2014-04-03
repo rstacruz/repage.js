@@ -125,6 +125,60 @@ describe('page', function(){
     })
   })
 
+  describe('page.uri', function(){
+    it('string only', function() {
+      var str = page.uri('/users');
+      expect(str).to.eq('/users');
+    })
+
+    it('string with param', function() {
+      var str = page.uri('/user/:id', { id: 2 });
+      expect(str).to.eq('/user/2');
+    })
+
+    it('string with query string', function() {
+      var str = page.uri('/search', { q: 'hello' });
+      expect(str).to.eq('/search?q=hello');
+    })
+
+    it('string with param and query string', function() {
+      var str = page.uri('/:country/search', { country: 'de', q: 'hello' });
+      expect(str).to.eq('/de/search?q=hello');
+    })
+  })
+
+  describe('page.querystring', function(){
+    it('basic case', function() {
+      var str = page.querystring({ q: 'hello world' });
+      expect(str).to.eq('q=hello%20world');
+    })
+
+    it('arrays', function() {
+      var str = page.querystring({ q: 'hello world', attrs: ['title','author'] });
+      expect(str).to.eq('q=hello%20world&attrs[]=title&attrs[]=author');
+    })
+
+    it('undefineds', function() {
+      var str = page.querystring({ q: 'hello world', context: undefined });
+      expect(str).to.eq('q=hello%20world');
+    })
+
+    it('nulls', function() {
+      var str = page.querystring({ q: 'hello world', context: null });
+      expect(str).to.eq('q=hello%20world&context=');
+    })
+
+    it('objects', function() {
+      var str = page.querystring({ book: {title: 'hello', author: 'world'} });
+      expect(str).to.eq('book[title]=hello&book[author]=world');
+    })
+
+    it('recursive objects', function() {
+      var str = page.querystring({ my: { book: {title: 'hello', author: 'world'} }});
+      expect(str).to.eq('my[book][title]=hello&my[book][author]=world');
+    })
+  })
+
   after(function(){
     page('/');
   })
