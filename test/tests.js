@@ -19,7 +19,10 @@ before(function() {
 
 // start
 before(function() {
-  page();
+  if (isNode)
+    page({ popstate: false });
+  else
+    page();
 })
 
 // return to / after all tests

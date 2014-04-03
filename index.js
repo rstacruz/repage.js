@@ -29,9 +29,9 @@
    * Setimmediate helper
    */
 
-  var setImmediate = window.setImmediate ?
-    window.setImmediate :
-    function(fn) { setTimeout(fn, 0); };
+  var setImmediate = this.setImmediate ?
+    this.setImmediate :
+    function(fn) { window.setTimeout(fn, 0); };
 
   /**
    * Register `path` with callback `fn()`,
