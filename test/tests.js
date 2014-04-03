@@ -132,66 +132,66 @@ describe('page', function(){
   })
 
   describe('page.uri', function(){
-    it('string only', function() {
+    it('should work for uri(string)', function() {
       var str = page.uri('/users');
       expect(str).to.eq('/users');
     })
 
-    it('string with param', function() {
+    it('should work for uri(string, params)', function() {
       var str = page.uri('/user/:id', { id: 2 });
       expect(str).to.eq('/user/2');
     })
 
-    it('string with query string', function() {
+    it('should work with query strings', function() {
       var str = page.uri('/search', { q: 'hello' });
       expect(str).to.eq('/search?q=hello');
     })
 
-    it('string with param and query string', function() {
+    it('should work with both params and query strings', function() {
       var str = page.uri('/:country/search', { country: 'de', q: 'hello' });
       expect(str).to.eq('/de/search?q=hello');
     })
   })
 
   describe('page.querystring', function(){
-    it('basic case', function() {
+    it('should work with a single key-value', function() {
       var str = page.querystring({ q: 'hello world' });
       expect(str).to.eq('q=hello%20world');
     })
 
-    it('arrays', function() {
+    it('should handle arrays', function() {
       var str = page.querystring({ q: 'hello world', attrs: ['title','author'] });
       expect(str).to.eq('q=hello%20world&attrs[]=title&attrs[]=author');
     })
 
-    it('undefineds', function() {
+    it('should discard undefineds', function() {
       var str = page.querystring({ q: 'hello world', context: undefined });
       expect(str).to.eq('q=hello%20world');
     })
 
-    it('nulls', function() {
+    it('should include nulls', function() {
       var str = page.querystring({ q: 'hello world', context: null });
       expect(str).to.eq('q=hello%20world&context=');
     })
 
-    it('objects', function() {
+    it('should handle objects', function() {
       var str = page.querystring({ book: {title: 'hello', author: 'world'} });
       expect(str).to.eq('book[title]=hello&book[author]=world');
     })
 
-    it('recursive objects', function() {
+    it('should handle recursive objects', function() {
       var str = page.querystring({ my: { book: {title: 'hello', author: 'world'} }});
       expect(str).to.eq('my[book][title]=hello&my[book][author]=world');
     })
   })
 
   describe('page.show', function() {
-    it('page(uri)', function(done) {
+    it('should handle page(uri)', function(done) {
       page('/show/hello', function(ctx){ done(); });
       page('/show/hello');
     })
 
-    it('page(uri, {})', function(done) {
+    it('should handle page(uri, {})', function(done) {
       page('/show/user/:id', function(ctx){
         expect(ctx.params.id).eq('2');
         done();
@@ -201,7 +201,7 @@ describe('page', function(){
   })
 
   describe('page.replace', function() {
-    it('not change history.length', function(done) {
+    it('should not change history.length', function(done) {
       var length = history.length;
 
       page('/replace/x', function(ctx){
@@ -213,12 +213,12 @@ describe('page', function(){
   })
 
   describe('page.replace uri', function() {
-    it('replace(uri)', function(done) {
+    it('should work with replace(uri)', function(done) {
       page('/replace/hello', function(ctx){ done(); });
       page.replace('/replace/hello');
     })
 
-    it('replace(uri, {})', function(done) {
+    it('should work with replace(uri, {})', function(done) {
       page('/replace/user/:id', function(ctx){
         expect(ctx.params.id).eq('2');
         done();
@@ -228,7 +228,7 @@ describe('page', function(){
   })
 
   describe('page.redirect', function() {
-    it('ok', function(done) {
+    it('should work', function(done) {
       page('/redirect/one', function() {
         page.redirect('/redirect/two');
       });
@@ -246,18 +246,18 @@ describe('page', function(){
       page.base('');
     });
 
-    it('default to blank', function() {
+    it('should default to blank', function() {
       expect(page.base()).to.eq('');
     });
 
-    it('set and get', function() {
+    it('should work as setter/getter', function() {
       page.base('/blog');
       expect(page.base()).to.eq('/blog');
     })
   })
 
   describe('page.back', function() {
-    it('goes back', function() {
+    it('should go back', function() {
       page('/back/1', function() {});
       page('/back/2', function() {});
 
@@ -265,6 +265,6 @@ describe('page', function(){
       page('/back/2');
       page.back();
       expect(location.pathname).to.eq('/back/1');
-    });
+    })
   })
 })
