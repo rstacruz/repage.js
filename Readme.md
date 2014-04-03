@@ -27,8 +27,8 @@ page.replace('/users')     // replaces the current state with /users
 
 ## Fork notes
 
-This is a fork by @rstacruz that extends the API with the following 
-conveniences:
+This is a fork of the original [page.js] by visionmedia that 
+extends the API with the following conveniences:
 
 ```js
 page('/user/:id', { id: 20 })           // navigates to /user/20
@@ -503,3 +503,6 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[page.js]: https://github.com/visionmedia/page.js
+[@rstacruz]: https://github.com/rstacruz
