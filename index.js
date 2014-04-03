@@ -166,6 +166,74 @@
   };
 
   /**
+   * Builds a URI path with dynamic parameters, mimicking Express's conventions.
+   *
+   *   path.uri('/api/users/:id', { id: 24 });
+   *   => "/api/users/24"
+   *
+   * Also builds query strings.
+   *
+   *   path.uri('/api/trip/:id', { id: 24, token: 'abcdef' });
+   *   => "/api/trip/24?token=abcdef"
+   *
+   * Great for using with `req.params` or `req.query`.
+   */
+
+  page.uri = function(path, options) {
+    var uri = path.replace(/:([A-Za-z_]+)/g, function(_, spec) {
+      var val = options[spec];
+      delete options[spec];
+      return val;
+    });
+
+    if (options && Object.keys(options).length > 0) {
+      uri += '?' + page.querystring(options);
+    }
+
+    return uri;
+  };
+
+  /**
+   * Converts a hash into a query string.
+   *
+   *   page.querystring({ name: 'john smith', count: 3 })
+   *   => "name=john%20smith&count=3"
+   *
+   * @api public
+   */
+
+  page.querystring = function(options, prefix){
+    var pairs = [], val;
+
+    if (Array.isArray(options)) {
+      for (var i = 0, len = options.length; i < len; i++) {
+        val = options[i];
+        pairs.push(page.querystring({ '': val }, prefix));
+      }
+    }
+    else if (typeof options === 'object') {
+      for (var key in options) {
+        if (!options.hasOwnProperty(key)) continue;
+
+        val = options[key];
+        if (typeof val === 'undefined') continue;
+
+        if (prefix) key = prefix + '[' + key + ']';
+
+        if (val === null) {
+          pairs.push(key + '=');
+        } else if (typeof val === 'object') {
+          pairs.push(page.querystring(val, key));
+        } else {
+          pairs.push([ key, encodeURIComponent(val) ].join('='));
+        }
+      }
+    }
+
+    return pairs.join('&');
+  };
+
+  /**
    * Unhandled `ctx`. When it's not the initial
    * popstate then redirect. If you wish to handle
    * 404s on your own use `page('*', callback)`.
