@@ -12,6 +12,33 @@ page('*', notfound)
 page()
 ```
 
+## Quick reference
+
+```js
+// routing:
+page('/', index)           // calls `index()` when navigating to /
+page('*', notfound)        // calls `notfound()` for all pages
+page.base('/blog')         // sets the base path
+
+// navigation:
+page('/users')             // navigate to /users
+page.replace('/users')     // replaces the current state with /users
+```
+
+## Fork notes
+
+This is a fork by @rstacruz that extends the API with the following 
+conveniences:
+
+```js
+page('/user/:id', { id: 20 })      // navigates to /user/20
+page('/search', { q: 'hello' })    // navigates to /search?q=hello
+
+page.uri('/user/:id', { id: 20 })  // returns "/user/20" (string)
+
+page.redirect('/users')            // redirects to /users from a route
+```
+
 ## Running examples
 
   To run examples do the following to install dev dependencies and run the example server:
