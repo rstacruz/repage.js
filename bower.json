@@ -1,0 +1,30 @@
+{
+  "name": "repage.js",
+  "main": "index.js",
+  "version": "1.4.0",
+  "homepage": "https://github.com/rstacruz/repage.js",
+  "authors": [
+    "TJ Holowaychuk <tj@vision-media.ca>",
+    "Rico Sta. Cruz <hi@ricostacruz.com>"
+  ],
+  "description": "Tiny client-side router",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "page",
+    "route",
+    "router",
+    "routes",
+    "pushState"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
