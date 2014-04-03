@@ -132,17 +132,17 @@
   };
 
   /**
-   * Show `path` with optional `state` object.
+   * Show `path`.
    *
    * @param {String} path
-   * @param {Object} options
+   * @param {Object} params
    * @param {Boolean} dispatch
    * @return {Context}
    * @api public
    */
 
-  page.show = function(path, options, dispatch){
-    var uri = page.uri(path, options);
+  page.show = function(path, params, dispatch){
+    var uri = page.uri(path, params);
     var ctx = new Context(uri, null);
     if (false !== dispatch) page.dispatch(ctx);
     if (!ctx.unhandled) ctx.pushState();
@@ -150,7 +150,7 @@
   };
 
   /**
-   * Replace `path` with optional `state` object.
+   * Replace `path`.
    *
    * @param {String} path
    * @param {Object} options
@@ -158,8 +158,8 @@
    * @api public
    */
 
-  page.replace = function(path, options, init, dispatch){
-    var uri = page.uri(path, options);
+  page.replace = function(path, params, init, dispatch){
+    var uri = page.uri(path, params);
     var ctx = new Context(uri, null);
     ctx.init = init;
     if (null == dispatch) dispatch = true;
@@ -499,7 +499,8 @@
   function onpopstate(e) {
     if (e.state) {
       var path = e.state.path;
-      page.replace(path, e.state);
+      var ctx = new Context(path, null);
+      page.dispatch(ctx);
     }
   }
 

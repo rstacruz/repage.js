@@ -19,13 +19,10 @@ before(function() {
 
 // start
 before(function() {
-  if (isNode) {
-    // jsdom seems to trigger popstate when replaceState happens, which should
-    // not be the case
-    page({ popstate: false });
-  } else {
+  if (isNode)
+    page({ popstate: false })
+  else
     page();
-  }
 })
 
 // return to / after all tests
@@ -271,6 +268,23 @@ describe('page', function(){
       page('/back/2');
       page.back();
       expect(location.pathname).to.eq('/back/1');
+    })
+  })
+
+  describe('popstate', function() {
+    it('should trigger a popstate',isNode ? null : function(done) {
+      var order = '';
+      page('/back/b/1', function() { order += '1'; });
+      page('/back/b/2', function() { order += '2'; });
+
+      page('/back/b/1');
+      page('/back/b/2');
+      page.back();
+
+      setTimeout(function() {
+        expect(order).to.eq('121');
+        done();
+      }, 20);
     })
   })
 
