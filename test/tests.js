@@ -179,6 +179,36 @@ describe('page', function(){
     })
   })
 
+  describe('page.show', function() {
+    it('page(uri)', function(done) {
+      page('/show/hello', function(ctx){ done(); });
+      page('/show/hello');
+    })
+
+    it('page(uri, {})', function(done) {
+      page('/show/user/:id', function(ctx){
+        expect(ctx.params.id).eq('2');
+        done();
+      });
+      page('/show/user/:id', { id: 2 });
+    })
+  })
+
+  describe('page.replace', function() {
+    it('replace(uri)', function(done) {
+      page('/replace/hello', function(ctx){ done(); });
+      page.replace('/replace/hello');
+    })
+
+    it('replace(uri, {})', function(done) {
+      page('/replace/user/:id', function(ctx){
+        expect(ctx.params.id).eq('2');
+        done();
+      });
+      page.replace('/replace/user/:id', { id: 2 });
+    })
+  })
+
   after(function(){
     page('/');
   })

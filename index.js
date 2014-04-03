@@ -47,7 +47,7 @@
       for (var i = 1; i < arguments.length; ++i) {
         page.callbacks.push(route.middleware(arguments[i]));
       }
-    // show <path> with [state]
+    // show <path> with [options]
     } else if ('string' == typeof path) {
       page.show(path, fn);
     // start [options]
@@ -115,14 +115,15 @@
    * Show `path` with optional `state` object.
    *
    * @param {String} path
-   * @param {Object} state
+   * @param {Object} options
    * @param {Boolean} dispatch
    * @return {Context}
    * @api public
    */
 
-  page.show = function(path, state, dispatch){
-    var ctx = new Context(path, state);
+  page.show = function(path, options, dispatch){
+    var uri = page.uri(path, options);
+    var ctx = new Context(uri, null);
     if (false !== dispatch) page.dispatch(ctx);
     if (!ctx.unhandled) ctx.pushState();
     return ctx;
@@ -132,13 +133,14 @@
    * Replace `path` with optional `state` object.
    *
    * @param {String} path
-   * @param {Object} state
+   * @param {Object} options
    * @return {Context}
    * @api public
    */
 
-  page.replace = function(path, state, init, dispatch){
-    var ctx = new Context(path, state);
+  page.replace = function(path, options, init, dispatch){
+    var uri = page.uri(path, options);
+    var ctx = new Context(uri, null);
     ctx.init = init;
     if (null == dispatch) dispatch = true;
     if (dispatch) page.dispatch(ctx);
