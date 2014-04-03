@@ -2,6 +2,8 @@
 
   Tiny ~1200 byte Express-inspired client-side router.
 
+[![Status](https://travis-ci.org/rstacruz/repage.js.png?branch=master)](https://travis-ci.org/rstacruz/repage.js)
+
 ```js
 page('/', index)
 page('/user/:user', show)
