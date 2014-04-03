@@ -1,3 +1,9 @@
+/**
+ * repage.js - tiny client-side router forked from page.js
+ * http://github.com/rstacruz/repage.js
+ * http://github.com/visionmedia/page.js
+ * @license MIT
+ */
 
 ;(function(){
 
