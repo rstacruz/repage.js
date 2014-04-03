@@ -37,6 +37,7 @@ page('/search', { q: 'hello' })    // navigates to /search?q=hello
 page.uri('/user/:id', { id: 20 })  // returns "/user/20" (string)
 
 page.redirect('/users')            // redirects to /users from a route
+page.back()                        // goes back, or returns home if available
 ```
 
 ## Running examples
@@ -83,7 +84,7 @@ page('*', notfound)
 
   This is equivalent to `page('*', callback)` for generic "middleware".
 
-### page(path)
+### page(path, [params])
 
   Navigate to the given `path`.
 
@@ -92,6 +93,13 @@ $('.view').click(function(e){
   page('/user/12')
   e.preventDefault()
 })
+```
+
+You may also specify `params` for params to be replaced in the `path`s 
+placeholders.
+
+```js
+page('/user/:id', { id: 12 });
 ```
 
 ### page.show(path)
@@ -123,7 +131,45 @@ $('.view').click(function(e){
 ### page.base([path])
 
   Get or set the base `path`. For example if page.js
-  is operating within "/blog/*" set the base path to "/blog". 
+  is operating within "/blog/\*" set the base path to "/blog". 
+
+### page.homepath([path])
+
+  Get or set the home path `path`. This makes `page.back()` return to the home 
+  path when no other staet is available.
+
+### page.back()
+
+  Returns back. If there's no page to return to, 
+
+### page.redirect(path, [params])
+
+  Navigates to `path`. Works like `page.show()` or `page.replace()`, but 
+  suitable to be used inside a route.
+
+```js
+page('/dashboard', function(ctx) {
+  if (!authenticated)
+    page.redirect('/login');
+});
+```
+
+### page.uri(path, [params])
+
+  Builds a URI from the given `path`. The `params` is used to populate 
+  placeholders in the path, or to be appended as a query string.
+
+  This is the method that powers `page(path, [params])`, so any usage here will 
+  work with `page()`, `page.show()`, `page.replace()` and `page.redirect()` as 
+  well.
+
+```js
+page.uri('/user/:id', { id: '12' })
+=> '/user/12'
+
+page.uri('/search', { q: 'burrito' })
+=> '/search?q=burrito'
+```
 
 ### Context
 
@@ -406,10 +452,19 @@ function show(ctx) {
 
 ### Running tests
 
+In the browser:
+
 ```
 $ npm install
 $ make test
 $ open http://localhost:3000/
+```
+
+In the console:
+
+```
+$ npm install
+$ npm test
 ```
 
 ### Pull Requests
