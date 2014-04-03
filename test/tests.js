@@ -19,10 +19,13 @@ before(function() {
 
 // start
 before(function() {
-  if (isNode)
+  if (isNode) {
+    // jsdom seems to trigger popstate when replaceState happens, which should
+    // not be the case
     page({ popstate: false });
-  else
+  } else {
     page();
+  }
 })
 
 // return to / after all tests
