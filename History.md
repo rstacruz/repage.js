@@ -1,3 +1,16 @@
+1.4.0 / 2014-04-03
+==================
+
+ * first release as repage.js
+ * add `page.back()`
+ * add `page.homepath()` to define home page path
+ * add `page.uri(path, [params])` to generate URIs
+ * add `page.querystring(params)` to generate query strings
+ * add `page(path, [params])` to navigate to given page with params
+ * add `page.replace(path, [params])` as well
+ * add `page.replace(path, [params])` as well
+ * add `page.redirect(path, [params])` to create redirects inside routes
+ * add travis-compatible automated tests
 
 1.3.7 / 2013-09-09 
 ==================
