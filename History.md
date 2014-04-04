@@ -1,7 +1,8 @@
-1.4.1 / unreleased
+1.4.1 / 2014-04-04
 ==================
 
  * fix the back button mispopulating the query string
+ * more tests
 
 1.4.0 / 2014-04-03
 ==================

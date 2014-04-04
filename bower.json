@@ -1,7 +1,7 @@
 {
   "name": "repage.js",
   "main": "index.js",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "homepage": "https://github.com/rstacruz/repage.js",
   "authors": [
     "TJ Holowaychuk <tj@vision-media.ca>",
