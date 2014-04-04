@@ -12,8 +12,8 @@
     }
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha",
-    "coverage": "(cp index.js index.js~; ./node_modules/.bin/jscoverage index.js; mv index-cov.js index.js; ./node_modules/.bin/mocha -R html-cov > coverage.html); mv index.js~ index.js"
+    "test": "mocha",
+    "coverage": "(cp index.js index.js~; jscoverage index.js; mv index-cov.js index.js; mocha -R html-cov > coverage.html); mv index.js~ index.js"
   },
   "devDependencies": {
     "mocha": "^1.18.2",
