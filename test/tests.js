@@ -66,6 +66,17 @@ describe('page', function(){
 
       page('/querystring?hello=there');
     })
+
+    it('should expose the query string despite a hash', function(done){
+      page('/querystring/b', function(ctx){
+        expect(ctx.querystring).to.equal('hello=there');
+        expect(ctx.hash).to.equal('xyz');
+        expect(ctx.path).to.equal('/querystring/b?hello=there');
+        done();
+      });
+
+      page('/querystring/b?hello=there#xyz');
+    })
   })
 
   describe('ctx.pathname', function(){
@@ -267,6 +278,21 @@ describe('page', function(){
     it('should work as setter/getter', function() {
       page.base('/blog');
       expect(page.base()).to.eq('/blog');
+    })
+  })
+
+  describe('page.homepath', function() {
+    afterEach(function() {
+      page.homepath(undefined);
+    });
+
+    it('should default to blank', function() {
+      expect(page.homepath()).to.eq(undefined);
+    });
+
+    it('should work as setter/getter', function() {
+      page.homepath('/');
+      expect(page.homepath()).to.eq('/');
     })
   })
 
