@@ -8,6 +8,7 @@ if (isNode) {
 
 var expect = chai.expect;
 var called;
+var div;
 
 // XXX: super lame hack
 
@@ -31,6 +32,16 @@ after(function(){
 })
 
 describe('page', function(){
+  before(function() {
+    div = document.createElement('DIV');
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+  })
+
+  afterEach(function() {
+    div.innerHTML = '';
+  })
+
   describe('on page load', function(){
     it('should invoke the matching callback', function(){
       expect(called).to.equal(true);
@@ -288,9 +299,99 @@ describe('page', function(){
     })
   })
 
-  describe('page.stop', function() {
-    it('should not produce errors', function() {
-      page.stop();
+  describe('click handler', function() {
+    before(function() {
+      page('/click/unreachable', function() {
+        throw new Error("click event fired when it shouldn't");
+      });
+    })
+
+    beforeEach(function() {
+      page('/');
+    })
+
+    it('should work', function(done) {
+      page('/click/1', function() {
+        done();
+      });
+
+      var a = makeLink({ href: '/click/1' });
+      var event = makeClick();
+      a.dispatchEvent(event);
+    })
+
+    describe('supression', function() {
+      beforeEach(function() {
+        this._show = page.show;
+        page.show = function() {
+          console.log("FAILURE");
+          throw new Error("a page was dispatched when it shouldn't have");
+        }
+      })
+
+      afterEach(function() {
+        page.show = this._show;
+      })
+
+      // don't actually open the links
+      beforeEach(function() {
+        this.onclick = function(e) { e.preventDefault(); }
+        window.addEventListener('click', this.onclick);
+      })
+
+      afterEach(function() {
+        window.removeEventListener('click', this.onclick);
+      })
+
+      it('should supress links that open in new page', function() {
+        var a = makeLink({ href: '/click/uhoh', target: '_blank' });
+        var event = makeClick();
+        a.dispatchEvent(event);
+      })
+
+      it('should supress links to a different domain', function() {
+        var a = makeLink({ href: 'http://google.com/' });
+        var event = makeClick();
+        a.dispatchEvent(event);
+      })
+
+      it('should supress hash links', function() {
+        var a = makeLink({ href: location.pathname + '#x' });
+        var event = makeClick();
+        a.dispatchEvent(event);
+      })
+
+      it('should supress links to emails', function() {
+        var a = makeLink({ href: 'mailto:john@gmail.com' });
+        var event = makeClick();
+        a.dispatchEvent(event);
+      })
     })
   })
 })
+
+describe('page.stop', function() {
+  it('should not produce errors', function() {
+    page.stop();
+  })
+})
+
+function makeLink(options) {
+  var m;
+  var a = document.createElement('A');
+  a.setAttribute('href', options.href);
+  a.textContent = options.text || 'hello';
+  a.hash = (m = options.href.match(/(#.*)$/)) && m[1] || '';
+  a.search = (m = options.href.match(/\?(.*)$/)) && m[1] || '';
+  if (options.target) a.target = options.target;
+  div.appendChild(a);
+  return a;
+}
+
+function makeClick(options) {
+  var event = document.createEvent('MouseEvents');
+  event.initEvent('click', true, true);
+  event.which = null;
+  event.button = 1;
+  return event;
+}
