@@ -281,21 +281,6 @@ describe('page', function(){
     })
   })
 
-  describe('page.homepath', function() {
-    afterEach(function() {
-      page.homepath(undefined);
-    });
-
-    it('should default to blank', function() {
-      expect(page.homepath()).to.eq(undefined);
-    });
-
-    it('should work as setter/getter', function() {
-      page.homepath('/');
-      expect(page.homepath()).to.eq('/');
-    })
-  })
-
   describe('page.back', function() {
     it('should go back', function() {
       page('/back/1', function() {});

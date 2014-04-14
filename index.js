@@ -270,29 +270,13 @@
   };
 
   /**
-   * Goes back. If a `page.homepath()` is set, it goes there when no previous
-   * pages are available.
+   * Goes back.
    */
 
   page.back = function() {
     if (history.length > 0) {
       history.back();
-    } else if (home && home.length > 0) {
-      page(page.homepath());
     }
-  };
-
-  /**
-   * Sets or gets the home path.
-   * This is where `back()` will go when there's nowhere to go back to.
-   *
-   *   page.homepath('/');
-   *   page.back();
-   */
-
-  page.homepath = function(path){
-    if (0 == arguments.length) return home;
-    home = path;
   };
 
   /**
