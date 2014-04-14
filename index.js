@@ -263,19 +263,22 @@
    *   });
    */
 
-  page.redirect = function(path, opts) {
+  page.redirect = function(path, params) {
     setImmediate(function (){
-      page.replace(path, opts);
+      page.replace(path, params);
     });
   };
 
   /**
-   * Goes back.
+   * Goes back. If `path` is given, it will navigate to that instead when
+   * there's no page to go back to.
    */
 
-  page.back = function() {
+  page.back = function(path, params) {
     if (history.length > 0) {
       history.back();
+    } else if (arguments.length > 0) {
+      page(path, params);
     }
   };
 
