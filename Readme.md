@@ -144,9 +144,17 @@ page('/user/:id', { id: 12 });
   Get or set the home path `path`. This makes `page.back()` return to the home 
   path when no other staet is available.
 
-### page.back()
+### page.back([path, params])
 
-  Returns back. If there's no page to return to, 
+  Returns to the previous page. If `page` is given, it will navigate to that 
+  page if there's no page to return to.
+
+```js
+  document.getElementById('back').onclick = function() {
+    // either goes back, or returns to the homepage when there's no page to go 
+    // back to.
+    page.back('/');
+  };
 
 ### page.redirect(path, [params])
 
