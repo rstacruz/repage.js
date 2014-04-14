@@ -1,3 +1,10 @@
+1.4.2 / 2014-04-14
+==================
+
+ * deprecate `page.homepath()`
+ * implement `page.back(path)` to go back to a given path when there's no page 
+ to return to
+
 1.4.1 / 2014-04-04
 ==================
 
