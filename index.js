@@ -77,6 +77,12 @@
   }
 
   /**
+   * Number of pages navigated.
+   */
+
+  page.len = 0;
+
+  /**
    * Callback functions.
    */
 
@@ -275,7 +281,7 @@
    */
 
   page.back = function(path, params) {
-    if (history.length > 0) {
+    if (page.len > 0) {
       history.back();
     } else if (arguments.length > 0) {
       page(path, params);
@@ -344,6 +350,7 @@
    */
 
   Context.prototype.pushState = function(){
+    page.len++;
     history.pushState(this.state, this.title, this.canonicalPath);
   };
 
