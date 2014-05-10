@@ -116,7 +116,7 @@
     if (false !== options.click) window.addEventListener('click', onclick, false);
     if (!dispatch) return;
     var url = location.pathname + location.search + location.hash;
-    page.replace(url, null, true, dispatch);
+    page.replace(url, {}, true, dispatch);
   };
 
   /**
