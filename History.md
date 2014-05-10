@@ -1,3 +1,9 @@
+1.4.3 / 2014-05-10
+==================
+
+ * Fixes crash when starting with a URL with search options
+ * Allow AMD support
+
 1.4.2 / 2014-04-14
 ==================
 
