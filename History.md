@@ -1,16 +1,18 @@
-1.4.4 / 2014-05-10
-==================
+## 1.5.0 / unreleased
+
+ * allow changing which history object to use via `page.history = 
+ window.history`.
+
+## 1.4.4 / 2014-05-10
 
  * Make page.back() more reliable
 
-1.4.3 / 2014-05-10
-==================
+## 1.4.3 / 2014-05-10
 
  * Fixes crash when starting with a URL with search options
  * Allow AMD support
 
-1.4.2 / 2014-04-14
-==================
+## 1.4.2 / 2014-04-14
 
  * deprecate `page.homepath()`
  * implement `page.back(path)` to go back to a given path when there's no page 
