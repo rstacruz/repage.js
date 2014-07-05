@@ -2,9 +2,14 @@
 
 var isNode = typeof window !== "object";
 
-if (isNode) require('./support/jsdom');
+if (isNode) {
+  require('./support/jsdom');
+  global.chai = require('chai');
+  before(function () {
+    global.page = require('../index');
+  });
+}
 
-global.chai = require('chai');
 var expect = chai.expect;
 var called;
 var div;
@@ -12,7 +17,6 @@ var div;
 // XXX: super lame hack
 
 before(function() {
-  global.page = require('../index');
   page('/', function(){
     called = true;
   })
