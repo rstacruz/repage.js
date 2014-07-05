@@ -1,10 +1,13 @@
- ![page router logo](http://f.cl.ly/items/3i3n001d0s1Q031r2q1P/page.png)
+# repage.js
 
-  Tiny ~1200 byte Express-inspired client-side router.
+  Tiny ~1200 byte Express-inspired client-side router. Forked from 
+  [page.js](http://github.com/visionmedia/page.js).
 
 [![Status](https://travis-ci.org/rstacruz/repage.js.png?branch=master)](https://travis-ci.org/rstacruz/repage.js)
 
 ```js
+page = require('repage')
+
 page('/', index)
 page('/user/:user', show)
 page('/user/:user/edit', edit)
