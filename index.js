@@ -77,6 +77,12 @@
   }
 
   /**
+   * History object to use. This defaults to `window.history`.
+   */
+
+  page.history = history;
+
+  /**
    * Number of pages navigated.
    */
 
@@ -282,7 +288,7 @@
 
   page.back = function(path, params) {
     if (page.len > 0) {
-      history.back();
+      page.history.back();
     } else if (arguments.length > 0) {
       page(path, params);
     }
@@ -351,7 +357,7 @@
 
   Context.prototype.pushState = function(){
     page.len++;
-    history.pushState(this.state, this.title, this.canonicalPath);
+    page.history.pushState(this.state, this.title, this.canonicalPath);
   };
 
   /**
@@ -361,7 +367,7 @@
    */
 
   Context.prototype.save = function(){
-    history.replaceState(this.state, this.title, this.canonicalPath);
+    page.history.replaceState(this.state, this.title, this.canonicalPath);
   };
 
   /**
