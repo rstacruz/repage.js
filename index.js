@@ -181,14 +181,21 @@
   };
 
   /**
-   * Dispatch the given `ctx`.
+   * Dispatch the given path.
    *
-   * @param {Object} ctx
-   * @api private
+   *     page.dispatch('/home')
+   *
+   * You can also pass a Context object.
+   *
+   * @param {Object} ctx a path string or a Context object
    */
 
   page.dispatch = function(ctx){
     var i = 0;
+
+    // account for path strings
+    if (typeof ctx === 'string')
+      ctx = new Context(ctx, null);
 
     function next() {
       var fn = page.callbacks[i++];
@@ -202,12 +209,12 @@
   /**
    * Builds a URI path with dynamic parameters, mimicking Express's conventions.
    *
-   *   path.uri('/api/users/:id', { id: 24 });
+   *   page.uri('/api/users/:id', { id: 24 });
    *   => "/api/users/24"
    *
    * Also builds query strings.
    *
-   *   path.uri('/api/trip/:id', { id: 24, token: 'abcdef' });
+   *   page.uri('/api/trip/:id', { id: 24, token: 'abcdef' });
    *   => "/api/trip/24?token=abcdef"
    *
    * Great for using with `req.params` or `req.query`.
@@ -497,11 +504,7 @@
    */
 
   function onpopstate(e) {
-    if (e.state) {
-      var path = e.state.path;
-      var ctx = new Context(path, null);
-      page.dispatch(ctx);
-    }
+    if (e.state) page.dispatch(e.state.path);
   }
 
   /**
