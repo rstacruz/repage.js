@@ -19,12 +19,18 @@
     "routes",
     "pushState"
   ],
-  "license": "MIT",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+    ".gitignore",
+    ".npmignore",
+    ".travis.yml",
+    "component.json",
+    "bower.json",
+    "examples",
+    "History.md",
+    "Makefile",
+    "package.json",
+    "Readme.md",
+    "test"
+  ],
+  "license": "MIT"
 }

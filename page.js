@@ -1,10 +1,4 @@
-/**
- * repage.js - tiny client-side router forked from page.js
- * http://github.com/rstacruz/repage.js
- * http://github.com/visionmedia/page.js
- * @license MIT
- */
-;(function() {
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.page=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 
   /* jshint browser:true */
 
@@ -12,7 +6,7 @@
    * Module dependencies.
    */
 
-  var pathtoRegexp = require('path-to-regexp');
+  var pathtoRegexp = _dereq_('path-to-regexp');
 
   /**
    * Module exports.
@@ -33,24 +27,10 @@
   var base = '';
 
   /**
-   * Home.
-   */
-
-  var home;
-
-  /**
    * Running flag.
    */
 
   var running;
-
-  /**
-   * Setimmediate helper
-   */
-
-  var setImmediate = this.setImmediate ?
-    this.setImmediate :
-    function(fn) { window.setTimeout(fn, 0); };
 
   /**
    * Register `path` with callback `fn()`,
@@ -80,7 +60,7 @@
       for (var i = 1; i < arguments.length; ++i) {
         page.callbacks.push(route.middleware(arguments[i]));
       }
-    // show <path> with [options]
+    // show <path> with [state]
     } else if ('string' == typeof path) {
       page.show(path, fn);
     // start [options]
@@ -88,18 +68,6 @@
       page.start(path);
     }
   }
-
-  /**
-   * History object to use. This defaults to `window.history`.
-   */
-
-  page.history = history;
-
-  /**
-   * Number of pages navigated.
-   */
-
-  page.len = 0;
 
   /**
    * Callback functions.
@@ -141,7 +109,7 @@
     if (false !== options.click) window.addEventListener('click', onclick, false);
     if (!dispatch) return;
     var url = location.pathname + location.search + location.hash;
-    page.replace(url, {}, true, dispatch);
+    page.replace(url, null, true, dispatch);
   };
 
   /**
@@ -152,40 +120,38 @@
 
   page.stop = function(){
     running = false;
-    window.removeEventListener('click', onclick, false);
-    window.removeEventListener('popstate', onpopstate, false);
+    removeEventListener('click', onclick, false);
+    removeEventListener('popstate', onpopstate, false);
   };
 
   /**
-   * Show `path`.
+   * Show `path` with optional `state` object.
    *
    * @param {String} path
-   * @param {Object} params
+   * @param {Object} state
    * @param {Boolean} dispatch
    * @return {Context}
    * @api public
    */
 
-  page.show = function(path, params, dispatch){
-    var uri = page.uri(path, params);
-    var ctx = new Context(uri, null);
+  page.show = function(path, state, dispatch){
+    var ctx = new Context(path, state);
     if (false !== dispatch) page.dispatch(ctx);
     if (!ctx.unhandled) ctx.pushState();
     return ctx;
   };
 
   /**
-   * Replace `path`.
+   * Replace `path` with optional `state` object.
    *
    * @param {String} path
-   * @param {Object} options
+   * @param {Object} state
    * @return {Context}
    * @api public
    */
 
-  page.replace = function(path, params, init, dispatch){
-    var uri = page.uri(path, params);
-    var ctx = new Context(uri, null);
+  page.replace = function(path, state, init, dispatch){
+    var ctx = new Context(path, state);
     ctx.init = init;
     if (null == dispatch) dispatch = true;
     if (dispatch) page.dispatch(ctx);
@@ -194,21 +160,14 @@
   };
 
   /**
-   * Dispatch the given path.
+   * Dispatch the given `ctx`.
    *
-   *     page.dispatch('/home')
-   *
-   * You can also pass a Context object.
-   *
-   * @param {Object} ctx a path string or a Context object
+   * @param {Object} ctx
+   * @api private
    */
 
   page.dispatch = function(ctx){
     var i = 0;
-
-    // account for path strings
-    if (typeof ctx === 'string')
-      ctx = new Context(ctx, null);
 
     function next() {
       var fn = page.callbacks[i++];
@@ -217,101 +176,6 @@
     }
 
     next();
-  };
-
-  /**
-   * Builds a URI path with dynamic parameters, mimicking Express's conventions.
-   *
-   *   page.uri('/api/users/:id', { id: 24 });
-   *   => "/api/users/24"
-   *
-   * Also builds query strings.
-   *
-   *   page.uri('/api/trip/:id', { id: 24, token: 'abcdef' });
-   *   => "/api/trip/24?token=abcdef"
-   *
-   * Great for using with `req.params` or `req.query`.
-   */
-
-  page.uri = function(path, options) {
-    var uri = path.replace(/:([A-Za-z_]+)/g, function(_, spec) {
-      var val = options[spec];
-      delete options[spec];
-      return val;
-    });
-
-    if (options && Object.keys(options).length > 0) {
-      uri += '?' + page.querystring(options);
-    }
-
-    return uri;
-  };
-
-  /**
-   * Converts a hash into a query string.
-   *
-   *   page.querystring({ name: 'john smith', count: 3 })
-   *   => "name=john%20smith&count=3"
-   *
-   * @api public
-   */
-
-  page.querystring = function(options, prefix){
-    var pairs = [], val;
-
-    if (Array.isArray(options)) {
-      for (var i = 0, len = options.length; i < len; i++) {
-        val = options[i];
-        pairs.push(page.querystring({ '': val }, prefix));
-      }
-    }
-    else if (typeof options === 'object') {
-      for (var key in options) {
-        if (!options.hasOwnProperty(key)) continue;
-
-        val = options[key];
-        if (typeof val === 'undefined') continue;
-
-        if (prefix) key = prefix + '[' + key + ']';
-
-        if (val === null) {
-          pairs.push(key + '=');
-        } else if (typeof val === 'object') {
-          pairs.push(page.querystring(val, key));
-        } else {
-          pairs.push([ key, encodeURIComponent(val) ].join('='));
-        }
-      }
-    }
-
-    return pairs.join('&');
-  };
-
-  /**
-   * Redirect helper.
-   *
-   *   page('/login', function() {
-   *     page.redirect('/sessions/new'));
-   *   });
-   */
-
-  page.redirect = function(path, params) {
-    setImmediate(function (){
-      page.replace(path, params);
-    });
-  };
-
-  /**
-   * Goes back. If `path` is given, it will navigate to that instead when
-   * there's no page to go back to.
-   */
-
-  page.back = function(path, params) {
-    if (page.len > 0) {
-      page.history.back();
-    } else if (arguments.length > 0) {
-      page(path, params);
-    }
   };
 
   /**
@@ -376,8 +240,7 @@
    */
 
   Context.prototype.pushState = function(){
-    page.len++;
-    page.history.pushState(this.state, this.title, this.canonicalPath);
+    history.pushState(this.state, this.title, this.canonicalPath);
   };
 
   /**
@@ -387,7 +250,7 @@
    */
 
   Context.prototype.save = function(){
-    page.history.replaceState(this.state, this.title, this.canonicalPath);
+    history.replaceState(this.state, this.title, this.canonicalPath);
   };
 
   /**
@@ -479,7 +342,10 @@
    */
 
   function onpopstate(e) {
-    if (e.state) page.dispatch(e.state.path);
+    if (e.state) {
+      var path = e.state.path;
+      page.replace(path, e.state);
+    }
   }
 
   /**
@@ -543,16 +409,152 @@
     return 0 == href.indexOf(origin);
   }
 
-  /**
-   * Expose `page`.
-   */
+},{"path-to-regexp":2}],2:[function(_dereq_,module,exports){
+/**
+ * Expose `pathtoRegexp`.
+ */
+module.exports = pathtoRegexp;
 
-  if ( 'function' === typeof define && define.amd ) {
-    define( function () { return page; });
-  } else if ('undefined' !== typeof module) {
-    module.exports = page;
-  } else {
-    window.page = page;
+var PATH_REGEXP = new RegExp([
+  // Match already escaped characters that would otherwise incorrectly appear
+  // in future matches. This allows the user to escape special characters that
+  // shouldn't be transformed.
+  '(\\\\.)',
+  // Match Express-style parameters and un-named parameters with a prefix
+  // and optional suffixes. Matches appear as:
+  //
+  // "/:test(\\d+)?" => ["/", "test", "\d+", undefined, "?"]
+  // "/route(\\d+)" => [undefined, undefined, undefined, "\d+", undefined]
+  '([\\/.])?(?:\\:(\\w+)(?:\\(((?:\\\\.|[^)])*)\\))?|\\(((?:\\\\.|[^)])*)\\))([+*?])?',
+  // Match regexp special characters that should always be escaped.
+  '([.+*?=^!:${}()[\\]|\\/])'
+].join('|'), 'g');
+
+/**
+ * Escape the capturing group by escaping special characters and meaning.
+ *
+ * @param  {String} group
+ * @return {String}
+ */
+function escapeGroup (group) {
+  return group.replace(/([=!:$\/()])/g, '\\$1');
+}
+
+/**
+ * Normalize the given path string, returning a regular expression.
+ *
+ * An empty array should be passed in, which will contain the placeholder key
+ * names. For example `/user/:id` will then contain `["id"]`.
+ *
+ * @param  {(String|RegExp|Array)} path
+ * @param  {Array}                 keys
+ * @param  {Object}                options
+ * @return {RegExp}
+ */
+function pathtoRegexp (path, keys, options) {
+  keys = keys || [];
+  options = options || {};
+
+  var strict = options.strict;
+  var end = options.end !== false;
+  var flags = options.sensitive ? '' : 'i';
+  var index = 0;
+
+  if (path instanceof RegExp) {
+    // Match all capturing groups of a regexp.
+    var groups = path.source.match(/\((?!\?)/g) || [];
+
+    // Map all the matches to their numeric keys and push into the keys.
+    keys.push.apply(keys, groups.map(function (match, index) {
+      return {
+        name:      index,
+        delimiter: null,
+        optional:  false,
+        repeat:    false
+      };
+    }));
+
+    // Return the source back to the user.
+    return path;
   }
 
-})();
+  if (Array.isArray(path)) {
+    // Map array parts into regexps and return their source. We also pass
+    // the same keys and options instance into every generation to get
+    // consistent matching groups before we join the sources together.
+    path = path.map(function (value) {
+      return pathtoRegexp(value, keys, options).source;
+    });
+
+    // Generate a new regexp instance by joining all the parts together.
+    return new RegExp('(?:' + path.join('|') + ')', flags);
+  }
+
+  // Alter the path string into a usable regexp.
+  path = path.replace(PATH_REGEXP, function (match, escaped, prefix, key, capture, group, suffix, escape) {
+    // Avoiding re-escaping escaped characters.
+    if (escaped) {
+      return escaped;
+    }
+
+    // Escape regexp special characters.
+    if (escape) {
+      return '\\' + escape;
+    }
+
+    var repeat   = suffix === '+' || suffix === '*';
+    var optional = suffix === '?' || suffix === '*';
+
+    keys.push({
+      name:      key || index++,
+      delimiter: prefix || '/',
+      optional:  optional,
+      repeat:    repeat
+    });
+
+    // Escape the prefix character.
+    prefix = prefix ? '\\' + prefix : '';
+
+    // Match using the custom capturing group, or fallback to capturing
+    // everything up to the next slash (or next period if the param was
+    // prefixed with a period).
+    capture = escapeGroup(capture || group || '[^' + (prefix || '\\/') + ']+?');
+
+    // Allow parameters to be repeated more than once.
+    if (repeat) {
+      capture = capture + '(?:' + prefix + capture + ')*';
+    }
+
+    // Allow a parameter to be optional.
+    if (optional) {
+      return '(?:' + prefix + '(' + capture + '))?';
+    }
+
+    // Basic parameter support.
+    return prefix + '(' + capture + ')';
+  });
+
+  // Check whether the path ends in a slash as it alters some match behaviour.
+  var endsWithSlash = path[path.length - 1] === '/';
+
+  // In non-strict mode we allow an optional trailing slash in the match. If
+  // the path to match already ended with a slash, we need to remove it for
+  // consistency. The slash is only valid at the very end of a path match, not
+  // anywhere in the middle. This is important for non-ending mode, otherwise
+  // "/test/" will match "/test//route".
+  if (!strict) {
+    path = (endsWithSlash ? path.slice(0, -2) : path) + '(?:\\/(?=$))?';
+  }
+
+  // In non-ending mode, we need prompt the capturing groups to match as much
+  // as possible by using a positive lookahead for the end or next path segment.
+  if (!end) {
+    path += strict && endsWithSlash ? '' : '(?=\\/|$)';
+  }
+
+  return new RegExp('^' + path + (end ? '$' : ''), flags);
+};
+
+},{}]},{},[1])
+(1)
+});

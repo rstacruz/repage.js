@@ -53,12 +53,14 @@ allowing you to pass state objects into `page(path, options)`.
 
   To run examples do the following to install dev dependencies and run the example server:
 
+    $ git clone git://github.com/visionmedia/page.js
+    $ cd page.js
     $ npm install
     $ node examples
-    $ open http://localhost:3000
+    $ open http://localhost:4000
 
  Currently we have examples for:
- 
+
    - `basic` minimal application showing basic routing
    - `notfound` similar to `basic` with single-page 404 support
    - `album` showing pagination and external links
@@ -68,6 +70,7 @@ allowing you to pass state objects into `page(path, options)`.
    - `server` illustrates how to use the dispatch option to server initial content
    - `chrome` Google Chrome style administration interface
    - `transitions` Shows off a simple technique for adding transitions between "pages"
+   - `partials` using hogan.js to render mustache partials client side
 
   __NOTE__: keep in mind these examples do not use jQuery or similar, so
   portions of the examples may be relatively verbose, though they're not
@@ -140,7 +143,7 @@ page('/user/:id', { id: 12 });
 ### page.base([path])
 
   Get or set the base `path`. For example if page.js
-  is operating within "/blog/\*" set the base path to "/blog". 
+  is operating within "/blog/*" set the base path to "/blog".
 
 ### page.homepath([path])
 
@@ -388,7 +391,7 @@ function show(ctx){
   with the string to `RegExp` conversion.
 
   Match an explicit path:
-  
+
 ```js
 page('/about', callback)
 ```
@@ -491,7 +494,7 @@ $ npm test
   * Commits should be in the form of what-it-is: how-it-does-it and or why-it's-needed or what-it-is for trivial changes
   * Pull requests and commits should be a guide to the code.
 
-## License 
+## License
 
 (The MIT License)
 
