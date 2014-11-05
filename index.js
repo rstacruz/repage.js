@@ -33,8 +33,86 @@
   repage.stop = page.stop;
 
   repage.show = function (path, params, dispatch) {
-    page.show(path, params, dispatch);
+    var uri = repage.uri(path, params);
+    page.show(uri, {}, dispatch);
   };
+
+  repage.replace = function (path, params, init, dispatch) {
+    var uri = repage.uri(path, params);
+    page.replace(uri, {}, init, dispatch);
+  };
+
+  /**
+   * uri() : uri(path, options)
+   * Builds a URI path with dynamic parameters, mimicking Express's conventions.
+   *
+   *     page.uri('/api/users/:id', { id: 24 });
+   *     => "/api/users/24"
+   *
+   * Also builds query strings.
+   *
+   *     page.uri('/api/trip/:id', { id: 24, token: 'abcdef' });
+   *     => "/api/trip/24?token=abcdef"
+   *
+   * Great for using with `req.params` or `req.query`.
+   */
+
+  repage.uri = function(path, options) {
+    var uri = path.replace(/:([A-Za-z_]+)/g, function(_, spec) {
+      var val = options[spec];
+      delete options[spec];
+      return val;
+    });
+
+    if (options && Object.keys(options).length > 0) {
+      uri += '?' + repage.querystring(options);
+    }
+
+    return uri;
+  };
+
+  /**
+   * querystring() : querystring(data)
+   * Converts an object into a query string.
+   *
+   *     page.querystring({ name: 'john smith', count: 3 })
+   *     => "name=john%20smith&count=3"
+   */
+
+  repage.querystring = function (options, prefix) {
+    var pairs = [], val;
+
+    if (Array.isArray(options)) {
+      for (var i = 0, len = options.length; i < len; i++) {
+        val = options[i];
+        pairs.push(repage.querystring({ '': val }, prefix));
+      }
+    }
+    else if (typeof options === 'object') {
+      for (var key in options) {
+        if (!options.hasOwnProperty(key)) continue;
+
+        val = options[key];
+        if (typeof val === 'undefined') continue;
+
+        if (prefix) key = prefix + '[' + key + ']';
+
+        if (val === null) {
+          pairs.push(key + '=');
+        } else if (typeof val === 'object') {
+          pairs.push(repage.querystring(val, key));
+        } else {
+          pairs.push([ key, encodeURIComponent(val) ].join('='));
+        }
+      }
+    }
+
+    return pairs.join('&');
+  };
+
+  /*
+   * Export
+   */
 
   return repage;
 
