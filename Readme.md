@@ -6,6 +6,7 @@ Extensions to [visionmedia/page.js], an Express-inspired client-side router.
 
 [![Status](http://img.shields.io/travis/rstacruz/repage.js/master.svg?style=flat)](https://travis-ci.org/rstacruz/repage.js "See test builds")
 [![CodeClimate](http://img.shields.io/codeclimate/github/rstacruz/repage.js.svg?style=flat)](https://codeclimate.com/github/rstacruz/repage.js "CodeClimate")
+[![Coveralls](http://img.shields.io/coveralls/rstacruz/repage.js.svg?style=flat)](https://coveralls.io/r/rstacruz/repage.js)
 
 <br>
 
