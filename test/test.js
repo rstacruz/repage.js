@@ -8,6 +8,8 @@ if (isNode) {
   expect = chai.expect;
 }
 
+describe('repage.js', function () {
+
 before(function () {
   if (isNode) {
     if (process.env.COVERAGE) {
@@ -25,6 +27,7 @@ before(function () {
 });
 
 after(function () {
+  page.teardown();
   if (!isNode) {
     history.replaceState("", {}, old.location);
   }
@@ -214,4 +217,6 @@ describe('.redirect()', function () {
 
     page('/redirect/one');
   });
+});
+
 });

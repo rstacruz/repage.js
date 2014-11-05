@@ -11,7 +11,7 @@
   "scripts": {
     "test": "mocha",
     "prepublish": "mdextract -u Readme.md; (cat support/banner.js; browserify index.js --standalone page | uglifyjs -m) > repage.js",
-    "coverage": "env COVERAGE=1 mocha -R html-cov > coverage.html"
+    "coverage": "env COVERAGE=1 mocha -R html-cov > coverage.html && open coverage.html"
   },
   "author": "Rico Sta. Cruz <hi@ricostacruz.com>",
   "license": "MIT",

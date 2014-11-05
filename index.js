@@ -213,6 +213,17 @@ repage.redirect = function(path, params) {
   });
 };
 
+/**
+ * teardown() : page.teardown()
+ * Removes all traces of repage.js. Mostly useful in tests.
+ */
+
+repage.teardown = function () {
+  repage.stop();
+  repage.len = 0;
+  page.callbacks = [];
+};
+
 /*
  * Patch pushState to update `len`
  */

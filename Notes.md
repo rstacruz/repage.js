@@ -22,3 +22,9 @@ Tests need to be run in `http:` (and not `file:`).
 ## Publishing
 
     $ npm test && npm publish && git release v2.0.0
+
+## Coverage report
+
+Opens in your browser.
+
+    $ npm run coverage
