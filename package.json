@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "test": "mocha",
-    "prepublish": "mdextract -u Readme.md; browserify index.js --standalone page | uglifyjs -m > repage.js"
+    "prepublish": "mdextract -u Readme.md; (cat support/banner.js; browserify index.js --standalone page | uglifyjs -m) > repage.js"
   },
   "author": "Rico Sta. Cruz <hi@ricostacruz.com>",
   "license": "MIT",
