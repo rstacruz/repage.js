@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "test": "mocha",
-    "prepublish": "mdextract -u Readme.md; browserify index.js --standalone page -o repage.js"
+    "prepublish": "mdextract -u Readme.md; browserify index.js --standalone page | uglifyjs -m > repage.js"
   },
   "author": "Rico Sta. Cruz <hi@ricostacruz.com>",
   "license": "MIT",
@@ -25,6 +25,7 @@
     "mocha": "^2.0.1",
     "mocha-clean": "^0.3.1",
     "mocha-jsdom": "^0.1.1",
-    "sinon": "^1.11.1"
+    "sinon": "^1.11.1",
+    "uglify-js": "^2.4.15"
   }
 }
