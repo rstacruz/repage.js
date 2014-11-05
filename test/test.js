@@ -10,6 +10,9 @@ if (isNode) {
 
 before(function () {
   if (isNode) {
+    require('blanket')({
+      pattern: require('path').resolve('./index.js')
+    });
     page = require('../index');
     page({ popstate: false });
   } else {
