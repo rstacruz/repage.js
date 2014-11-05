@@ -6,6 +6,8 @@ Extensions to [visionmedia/page.js], an Express-inspired client-side router.
 
 [![Status](http://img.shields.io/travis/rstacruz/repage.js/master.svg?style=flat)](https://travis-ci.org/rstacruz/repage.js "See test builds")
 
+<br>
+
 ## Basic usage
 
 Use `repage` as you typically would use *page.js*. (The `repage` object is a
@@ -42,6 +44,8 @@ $ bower install --save repage
 [version]: https://cdn.rawgit.com/rstacruz/repage.js/v2.0.0/repage.js
 
 Download or hotlink: __[repage.js][version]__. It will then be exported as `window.page`.
+
+<br>
 
 ## API
 
