@@ -9,7 +9,7 @@ var setImmediate = this.setImmediate ?
   function (fn) { window.setTimeout(fn, 0); };
 
 /**
- * page([options]):
+ * page() : page([options])
  * Starts the [page.js] engine by binding event listeners to dispatch routes.
  * See page.js API for details.
  *
