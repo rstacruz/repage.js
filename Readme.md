@@ -83,7 +83,8 @@ Download or hotlink: __[repage.js][version]__. It will then be exported as `wind
 
 <!-- include: index.js -->
 
-### page([options])
+### page()
+> `page([options])`
 
 Starts the [page.js] engine by binding event listeners to dispatch routes.
 See page.js API for details.
