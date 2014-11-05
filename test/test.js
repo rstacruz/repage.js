@@ -1,4 +1,4 @@
-var page, expect;
+var page, expect, old = {};
 var isNode = typeof process === 'object';
 
 if (isNode) {
@@ -9,14 +9,20 @@ if (isNode) {
 }
 
 before(function () {
-  page = require('../index');
+  if (isNode) {
+    page = require('../index');
+    page({ popstate: false });
+  } else {
+    old.location = window.location.pathname;
+    page = window.page;
+    page();
+  }
 });
 
-before(function () {
-  if (isNode)
-    page({ popstate: false });
-  else
-    page();
+after(function () {
+  if (!isNode) {
+    history.replaceState("", {}, old.location);
+  }
 });
 
 describe('ctx.querystring', function () {
