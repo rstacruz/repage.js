@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "test": "mocha",
-    "prepublish": "mdextract -u Readme.md; (cat support/banner.js; browserify index.js --standalone page | uglifyjs -m) > repage.js"
+    "prepublish": "mdextract -u Readme.md; (cat support/banner.js; browserify index.js --standalone page | uglifyjs -m) > repage.js",
+    "coverage": "(cp index.js index.js~; jscoverage index.js; mv index-cov.js index.js; mocha -R html-cov > coverage.html); mv index.js~ index.js"
   },
   "author": "Rico Sta. Cruz <hi@ricostacruz.com>",
   "license": "MIT",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "browserify": "^6.2.0",
     "chai": "^1.9.2",
+    "jscoverage": "^0.5.9",
     "jsdom": "^1.1.0",
     "mdextract": "^1.0.0",
     "mocha": "^2.0.1",
