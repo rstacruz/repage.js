@@ -10,8 +10,8 @@ Extensions to [visionmedia/page.js], an Express-inspired client-side router.
 
 ## Basic usage
 
-Use `repage` as you typically would use *page.js*. (The `repage` object is a
-decorated version of `page`.)
+Use repage as you typically would use *page.js*. (This new `page` object is a
+decorated version of the original page.js `page`.)
 
 ```js
 var page = require('repage');
@@ -25,8 +25,38 @@ page('*', notfound);
 page();
 ```
 
+## Quick reference
+
 The new `page` object implements all the API of [visionmedia/page.js], plus other
 convenient extensions described below. As such, refer to the page.js API first.
+
+```js
+// routing:
+page('/', index)           // calls `index()` when navigating to /
+page('*', notfound)        // calls `notfound()` for all pages
+page.base('/blog')         // sets the base path
+
+// navigation:
+page('/users')             // navigate to /users
+page.replace('/users')     // replaces the current state with /users
+```
+
+These are features only available in repage.js:
+
+```js
+page('/user/:id', { id: 20 })           // navigates to /user/20
+page('/search', { q: 'hello' })         // navigates to /search?q=hello
+page.replace('/search', { q: 'hello' }) // navigates to /user/20 by replacing
+
+page.uri('/user/:id', { id: 20 })       // returns "/user/20" (string)
+page.redirect('/users')                 // redirects to /users from a route
+
+page.back()                             // goes back, or returns home if available
+```
+
+<br>
+
+## Installation
 
 ### Via npm or bower
 
@@ -74,33 +104,6 @@ page('*', notfound);
 page();
 ```
 
-### Quick reference
-
-
-    // routing:
-    page('/', index)           // calls `index()` when navigating to /
-    page('*', notfound)        // calls `notfound()` for all pages
-    page.base('/blog')         // sets the base path
-
-```js
-// navigation:
-page('/users')             // navigate to /users
-page.replace('/users')     // replaces the current state with /users
-```
-
-Only in repage.js:
-
-```js
-page('/user/:id', { id: 20 })           // navigates to /user/20
-page('/search', { q: 'hello' })         // navigates to /search?q=hello
-page.replace('/search', { q: 'hello' }) // navigates to /user/20 by replacing
-
-page.uri('/user/:id', { id: 20 })       // returns "/user/20" (string)
-page.redirect('/users')                 // redirects to /users from a route
-
-page.back()                             // goes back, or returns home if available
-```
-
 ### page(path)
 > `page(path, [params])`
 
@@ -125,7 +128,10 @@ page('/user/:id', { id: 12 });
 > `page.replace(path, [params])`
 
 Works like `page(path)`, but replaces the current state instead of pushing
-it. Great for form submission pages. *(Only in repage.js)*
+it. Great for form submission pages.
+
+You may also specify `params` for params to be replaced in the `path`s
+placeholders, like in `page('path')`. *(Only in repage.js)*
 
 ```js
 $('.submit').on('click', function () {
@@ -196,7 +202,7 @@ document.getElementById('back').onclick = function() {
 ### redirect()
 > `page.redirect(path, params)`
 
-Navigates to `path`. Works like `page.show()` or `page.replace()`, but
+Navigates to `path`. Works like `page(path)` or `page.replace()`, but
 suitable to be used inside a route.
 *(Only in repage.js)*
 

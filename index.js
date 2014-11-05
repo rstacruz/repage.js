@@ -49,30 +49,6 @@ function repage (path, fn) {
   }
 }
 
-/**
- * Quick reference:
- *
- *     // routing:
- *     page('/', index)           // calls `index()` when navigating to /
- *     page('*', notfound)        // calls `notfound()` for all pages
- *     page.base('/blog')         // sets the base path
- *     
- *     // navigation:
- *     page('/users')             // navigate to /users
- *     page.replace('/users')     // replaces the current state with /users
- *
- * Only in repage.js:
- *
- *     page('/user/:id', { id: 20 })           // navigates to /user/20
- *     page('/search', { q: 'hello' })         // navigates to /search?q=hello
- *     page.replace('/search', { q: 'hello' }) // navigates to /user/20 by replacing
- *     
- *     page.uri('/user/:id', { id: 20 })       // returns "/user/20" (string)
- *     page.redirect('/users')                 // redirects to /users from a route
- *     
- *     page.back()                             // goes back, or returns home if available
- */
-
 /*
  * Propagate unchanged things
  */
@@ -105,7 +81,10 @@ repage.show = function (path, params, dispatch) {
 /**
  * replace() : page.replace(path, [params])
  * Works like `page(path)`, but replaces the current state instead of pushing
- * it. Great for form submission pages. *(Only in repage.js)*
+ * it. Great for form submission pages.
+ *
+ * You may also specify `params` for params to be replaced in the `path`s 
+ * placeholders, like in `page('path')`. *(Only in repage.js)*
  *
  *     $('.submit').on('click', function () {
  *       $.post('/submit', function (article) {
@@ -224,7 +203,7 @@ repage.back = function(path, params) {
 
 /**
  * redirect() : page.redirect(path, params)
- * Navigates to `path`. Works like `page.show()` or `page.replace()`, but
+ * Navigates to `path`. Works like `page(path)` or `page.replace()`, but
  * suitable to be used inside a route.
  * *(Only in repage.js)*
  *
