@@ -47,6 +47,7 @@ repage.start = page.start;
 repage.stop = page.stop;
 repage.dispatch = page.dispatch;
 repage.base = page.base;
+repage.sameOrigin = page.sameOrigin;
 
 /**
  * page(path) : page(path, [params])
