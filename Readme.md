@@ -1,12 +1,12 @@
 # Repage.js
 
-Extensions to [visionmedia/page.js].
+Extensions to [visionmedia/page.js], an Express-inspired client-side router.
 
 [visionmedia/page.js]: https://github.com/visionmedia/page.js
 
 ## Basic usage
 
-Use `repage` as you typically would use `page`.
+Use `repage` as you typically would use *page.js*.
 
 ```js
 var page = require('repage');
@@ -19,6 +19,9 @@ page('/user/:user/album/sort', sort);
 page('*', notfound);
 page();
 ```
+
+The new `page` object implements all the API of [visionmedia/page.js], plus other
+convenient extensions described below. As such, refer to the page.js API first.
 
 ## API
 

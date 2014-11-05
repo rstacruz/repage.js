@@ -1,18 +1,19 @@
 {
   "name": "repage.js",
-  "version": "0.0.1",
+  "version": "1.4.6",
   "description": "Extensions for page.js, a client-side micro-router",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "prepublish": "mdextract -u Readme.md"
+    "prepublish": "mdextract -u Readme.md; browserify index.js --standalone page -o repage.js"
   },
   "author": "Rico Sta. Cruz <hi@ricostacruz.com>",
   "license": "MIT",
   "dependencies": {
-    "page": "^1.3.7"
+    "page": "1.x"
   },
   "devDependencies": {
+    "browserify": "^6.2.0",
     "chai": "^1.9.2",
     "jsdom": "^1.1.0",
     "mdextract": "^1.0.0",
