@@ -28,9 +28,19 @@
   </script>
 
   <style>
-     body { font-size: 14px; }
+     @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700);
+
+     body {
+       font-size: 15px;
+       font-family: source sans pro, sans serif;
+     }
      a, .menu a, .menu a:visited {
-       color: dodgerblue;
+       color: #3de;
+     }
+
+     a:hover,
+     .menu a:hover {
+       color: #3cf;
      }
 
      body:not(.no-literate) .content > blockquote {
@@ -42,9 +52,19 @@
      }
 
      .big-h1 .content h1 {
-       font-size: 3em;
+       font-size: 5em;
        text-transform: none;
        letter-spacing: -1px;
+       font-family: source sans pro, sans serif;
+       font-weight: 300;
+       color: #506070;
+     }
+
+     .big-h1 .content h1 + p {
+       font-size: 1.15em;
+     }
+
+     .header {
      }
 
      .bigger-code .content pre > code {
@@ -53,14 +73,19 @@
 
      .blockquote-examples .content > blockquote > p > code {
        padding: 0;
-       color: dodgerblue;
+       color: #789;
        display: block;
        background: transparent;
        margin-top: -10px;
+
+       border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+       padding-bottom: 10px;
+       margin-bottom: 0;
+       max-width: 55%;
      }
   </style>
 </head>
-<body role='flatdoc' class='big-h3 no-literate blockquote-examples bigger-code big-h1'>
+<body role='flatdoc' class='big-h3 blockquote-examples bigger-code big-h1'>
 
   <div class='header'>
     <div class='left'>
