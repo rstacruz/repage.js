@@ -1,3 +1,9 @@
+## 2.0.1 / 2014-11-05
+
+ * Implement `page.teardown()` to uninitialize repage.js. Useful for tests.
+
+ * Lots of documentation updates.
+
 ## 2.0.0 / 2014-11-05
 
  * Rewritten. `repage.js` is now a separate project that depends on `page.js`, 
