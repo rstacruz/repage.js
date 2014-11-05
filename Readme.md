@@ -1,4 +1,4 @@
-# Repage.js
+# repage.js
 
 Extensions to [visionmedia/page.js], an Express-inspired client-side router.
 
@@ -25,9 +25,20 @@ page();
 The new `page` object implements all the API of [visionmedia/page.js], plus other
 convenient extensions described below. As such, refer to the page.js API first.
 
-### Via npm
+### Via npm or bower
+
+```sh
+$ npm install --save repage
+$ bower install --save repage
+```
 
 [![npm version](http://img.shields.io/npm/v/repage.svg?style=flat)](https://npmjs.org/package/repage "View this project on npm")
+
+### Standalone
+
+> <!-- version --> `<script src="//cdn.rawgit.com/rstacruz/repage.js/v2.0.0/page.js"></script>`
+
+Exported as `window.page`.
 
 ## API
 
