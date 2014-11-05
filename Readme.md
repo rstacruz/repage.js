@@ -36,9 +36,9 @@ $ bower install --save repage
 
 ### Standalone
 
-> <!-- version --> `<script src="//cdn.rawgit.com/rstacruz/repage.js/v2.0.0/page.js"></script>`
+[version]: https://cdn.rawgit.com/rstacruz/repage.js/v2.0.0/repage.js
 
-Exported as `window.page`.
+Download or hotlink: __[repage.js][version]__. It will then be exported as `window.page`.
 
 ## API
 
