@@ -117,11 +117,15 @@ repage.len = 0;
  */
 
 repage.uri = function(path, options) {
-  var uri = path.replace(/:([A-Za-z_]+)/g, function(_, spec) {
-    var val = options[spec];
-    delete options[spec];
-    return val;
-  });
+  var uri = path;
+
+  if (options) {
+    uri = path.replace(/:([A-Za-z_]+)/g, function(_, spec) {
+      var val = options[spec];
+      delete options[spec];
+      return val;
+    });
+  }
 
   if (options && Object.keys(options).length > 0) {
     uri += '?' + repage.querystring(options);
