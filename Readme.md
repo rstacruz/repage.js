@@ -85,18 +85,8 @@ Download or hotlink: __[repage.js][version]__. It will then be exported as `wind
 
 ### page([options])
 
-Starts page.js.
-
-Register page's `popstate` / `click` bindings. If you're doing selective
-binding you'll like want to pass `{ click: false }` to specify this
-yourself. The following options are available:
-
-- `click` bind to click events [__true__]
-- `popstate` bind to popstate [__true__]
-- `dispatch` perform initial dispatch [true]
-
-If you wish to load serve initial content from the server you likely will
-want to set `dispatch` to __false__.
+Starts the [page.js] engine by binding event listeners to dispatch routes.
+See page.js API for details.
 
 ```js
 var page = require('repage');
