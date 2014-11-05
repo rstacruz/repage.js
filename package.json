@@ -4,7 +4,7 @@
   "description": "This is a fork of the original [page.js] by visionmedia that extends the API with the following conveniences:",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "Rico Sta. Cruz <hi@ricostacruz.com>",
   "license": "MIT",

@@ -32,6 +32,13 @@
   repage.start = page.start;
   repage.stop = page.stop;
 
+  /**
+   * len : repage.len
+   * Number of pages navigated to.
+   */
+
+  repage.len = 0;
+
   repage.show = function (path, params, dispatch) {
     var uri = repage.uri(path, params);
     page.show(uri, {}, dispatch);
@@ -108,6 +115,31 @@
     }
 
     return pairs.join('&');
+  };
+
+
+  /**
+   * back() : back([path])
+   * Goes back. If `path` is given, it will navigate to that instead when
+   * there's no page to go back to.
+   */
+
+  repage.back = function(path, params) {
+    if (repage.len > 0) {
+      history.back();
+    } else if (arguments.length > 0) {
+      repage(path, params);
+    }
+  };
+
+  /*
+   * Patch pushState to update `len`
+   */
+
+  var oldPushState = page.Context.prototype.pushState;
+  page.Context.prototype.pushState = function () {
+    repage.len++;
+    oldPushState.apply(this, arguments);
   };
 
   /*

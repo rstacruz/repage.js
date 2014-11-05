@@ -137,7 +137,7 @@ describe('.replace(uri)', function() {
 });
 
 
-xdescribe('.back()', function () {
+describe('.back()', function () {
   it('should go back', function () {
     repage('/back/1', function () {});
     repage('/back/2', function () {});
@@ -146,5 +146,11 @@ xdescribe('.back()', function () {
     repage('/back/2');
     repage.back();
     expect(location.pathname).to.eq('/back/1');
+  });
+});
+
+describe('.stop()', function() {
+  it('doesn\'t produce errors', function() {
+    repage.stop();
   });
 });
