@@ -153,3 +153,17 @@ describe('.stop()', function() {
     page.stop();
   });
 });
+
+describe('.redirect()', function () {
+  it('should work', function (done) {
+    page('/redirect/one', function () {
+      page.redirect('/redirect/two');
+    });
+
+    page('/redirect/two', function () {
+      done();
+    });
+
+    page('/redirect/one');
+  });
+});
