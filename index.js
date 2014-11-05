@@ -46,6 +46,7 @@ function repage (path, fn) {
 repage.start = page.start;
 repage.stop = page.stop;
 repage.dispatch = page.dispatch;
+repage.base = page.base;
 
 /**
  * page(path) : page(path, [params])
