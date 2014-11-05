@@ -4,6 +4,8 @@ Extensions to [visionmedia/page.js], an Express-inspired client-side router.
 
 [visionmedia/page.js]: https://github.com/visionmedia/page.js
 
+[![Status](http://img.shields.io/travis/rstacruz/repage.js/master.svg?style=flat)](https://travis-ci.org/rstacruz/repage.js "See test builds")
+
 ## Basic usage
 
 Use `repage` as you typically would use *page.js*.
@@ -22,6 +24,10 @@ page();
 
 The new `page` object implements all the API of [visionmedia/page.js], plus other
 convenient extensions described below. As such, refer to the page.js API first.
+
+### Via npm
+
+[![npm version](http://img.shields.io/npm/v/repage.svg?style=flat)](https://npmjs.org/package/repage "View this project on npm")
 
 ## API
 
@@ -187,3 +193,16 @@ page('/dashboard', function (ctx) {
 
 <!-- /include -->
 
+<br>
+
+## Thanks
+
+**repage.js** © 2014+, Rico Sta. Cruz. Released under the [MIT] License.<br>
+Authored and maintained by Rico Sta. Cruz with help from contributors ([list][contributors]).
+
+> [ricostacruz.com](http://ricostacruz.com) &nbsp;&middot;&nbsp;
+> GitHub [@rstacruz](https://github.com/rstacruz) &nbsp;&middot;&nbsp;
+> Twitter [@rstacruz](https://twitter.com/rstacruz)
+
+[MIT]: http://mit-license.org/
+[contributors]: http://github.com/rstacruz/repage.js/contributors
