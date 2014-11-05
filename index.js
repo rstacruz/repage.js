@@ -264,6 +264,12 @@
   };
 
   /*
+   * Save reference to original
+   */
+
+  repage.page = page;
+
+  /*
    * Export
    */
 
