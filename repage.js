@@ -37,9 +37,6 @@
    *     var page = require('repage');
    *     page('/', index);
    *     page('/user/:user', show);
-   *     page('/user/:user/edit', edit);
-   *     page('/user/:user/album', album);
-   *     page('/user/:user/album/sort', sort);
    *     page('*', notfound);
    *     page();
    */
@@ -117,7 +114,7 @@
   };
 
   /**
-   * page.replace():
+   * replace() : page.replace(path, [params])
    * Works like `page(path)`, but replaces the current state instead of pushing
    * it. Great for form submission pages.
    *
@@ -135,7 +132,7 @@
   };
 
   /**
-   * len : repage.len
+   * len : page.len
    * Number of pages navigated to.
    *
    *     page.len == 0;
@@ -146,7 +143,7 @@
   repage.len = 0;
 
   /**
-   * page.uri() : uri(path, options)
+   * uri() : page.uri(path, options)
    * Builds a URI path with dynamic parameters, mimicking Express's conventions.
    *
    *     page.uri('/api/users/:id', { id: 24 });
@@ -234,7 +231,7 @@
   };
 
   /**
-   * page.redirect() : page.redirect(path, params)
+   * redirect() : page.redirect(path, params)
    * Navigates to `path`. Works like `page.show()` or `page.replace()`, but
    * suitable to be used inside a route.
    *
@@ -248,9 +245,9 @@
    *     });
    */
 
-  page.redirect = function(path, params) {
+  repage.redirect = function(path, params) {
     setImmediate(function (){
-      page.replace(path, params);
+      repage.replace(path, params);
     });
   };
 

@@ -52,9 +52,6 @@ want to set `dispatch` to __false__.
 var page = require('repage');
 page('/', index);
 page('/user/:user', show);
-page('/user/:user/edit', edit);
-page('/user/:user/album', album);
-page('/user/:user/album/sort', sort);
 page('*', notfound);
 page();
 ```
@@ -106,7 +103,8 @@ page('/user/:id', { id: 12 });
 // same as `page('/user/12')`
 ```
 
-### page.replace()
+### replace()
+> `page.replace(path, [params])`
 
 Works like `page(path)`, but replaces the current state instead of pushing
 it. Great for form submission pages.
@@ -121,7 +119,7 @@ $('.submit').on('click', function () {
 ```
 
 ### len
-> `repage.len`
+> `page.len`
 
 Number of pages navigated to.
 
@@ -131,8 +129,8 @@ page('/login');
 page.len == 1;
 ```
 
-### page.uri()
-> `uri(path, options)`
+### uri()
+> `page.uri(path, options)`
 
 Builds a URI path with dynamic parameters, mimicking Express's conventions.
 
@@ -174,7 +172,7 @@ document.getElementById('back').onclick = function() {
 };
 ```
 
-### page.redirect()
+### redirect()
 > `page.redirect(path, params)`
 
 Navigates to `path`. Works like `page.show()` or `page.replace()`, but
