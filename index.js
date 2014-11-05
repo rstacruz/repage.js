@@ -186,7 +186,7 @@ repage.querystring = function (options, prefix) {
 repage.back = function(path, params) {
   if (repage.len > 0) {
     history.back();
-  } else if (arguments.length > 0) {
+  } else if (path) {
     repage(path, params);
   }
 };

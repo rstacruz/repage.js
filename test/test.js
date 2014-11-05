@@ -10,9 +10,11 @@ if (isNode) {
 
 before(function () {
   if (isNode) {
-    require('blanket')({
-      pattern: require('path').resolve('./index.js')
-    });
+    if (process.env.COVERAGE) {
+      require('blanket')({
+        pattern: require('path').resolve('./index.js')
+      });
+    }
     page = require('../index');
     page({ popstate: false });
   } else {
@@ -60,6 +62,22 @@ describe('.show()', function () {
       done();
     });
     page('/show/user/:id', { id: 2 });
+  });
+});
+
+describe('page()', function () {
+  var called;
+
+  it('page(fn) triggers for all pages', function (done) {
+    page(function (ctx, next) {
+      if (!called) {
+        called = true;
+        done();
+      }
+      next();
+    });
+
+    page('/etou/aotuha/ontuhoan/tueontuh');
   });
 });
 
@@ -154,6 +172,27 @@ describe('.back()', function () {
     page('/back/2');
     page.back();
     expect(location.pathname).to.eq('/back/1');
+  });
+
+  describe('without history', function () {
+    var old = {};
+
+    beforeEach(function () {
+      old.len = page.len;
+      page.len = 0;
+    });
+
+    afterEach(function () {
+      page.len = old.len;
+    });
+
+    it('falls back to home path', function (next) {
+      page('/home', function () {
+        // expect(location.pathname).to.eql('/home');
+        next();
+      });
+      page.back('/home');
+    });
   });
 });
 

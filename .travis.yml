@@ -1,2 +1,4 @@
 language: node_js
 node_js: ["0.10"]
+after_success:
+  - env COVERAGE=1 ./node_modules/.bin/mocha -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
