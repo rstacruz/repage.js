@@ -114,7 +114,7 @@ $('.view').click(function (e) {
 ```
 
 You may also specify `params` for params to be replaced in the `path`s
-placeholders.
+placeholders. *(Only in repage.js)*
 
 ```js
 page('/user/:id', { id: 12 });
@@ -125,7 +125,7 @@ page('/user/:id', { id: 12 });
 > `page.replace(path, [params])`
 
 Works like `page(path)`, but replaces the current state instead of pushing
-it. Great for form submission pages.
+it. Great for form submission pages. *(Only in repage.js)*
 
 ```js
 $('.submit').on('click', function () {
@@ -139,7 +139,7 @@ $('.submit').on('click', function () {
 ### len
 > `page.len`
 
-Number of pages navigated to.
+Number of pages navigated to. *(Only in repage.js)*
 
 ```js
 page.len == 0;
@@ -151,6 +151,7 @@ page.len == 1;
 > `page.uri(path, options)`
 
 Builds a URI path with dynamic parameters, mimicking Express's conventions.
+*(Only in repage.js)*
 
 ```js
 page.uri('/api/users/:id', { id: 24 });
@@ -170,6 +171,7 @@ Great for using with `req.params` or `req.query`.
 > `page.querystring(data)`
 
 Converts an object into a query string.
+*(Only in repage.js)*
 
 ```js
 page.querystring({ name: 'john smith', count: 3 })
@@ -181,6 +183,7 @@ page.querystring({ name: 'john smith', count: 3 })
 
 Goes back. If `path` is given, it will navigate to that instead when
 there's no page to go back to.
+*(Only in repage.js)*
 
 ```js
 document.getElementById('back').onclick = function() {
@@ -195,6 +198,7 @@ document.getElementById('back').onclick = function() {
 
 Navigates to `path`. Works like `page.show()` or `page.replace()`, but
 suitable to be used inside a route.
+*(Only in repage.js)*
 
 ```js
 page('/login', function (ctx) {

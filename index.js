@@ -91,7 +91,7 @@ repage.dispatch = page.dispatch;
  *     });
  *
  * You may also specify `params` for params to be replaced in the `path`s 
- * placeholders.
+ * placeholders. *(Only in repage.js)*
  *
  *     page('/user/:id', { id: 12 });
  *     // same as `page('/user/12')`
@@ -105,7 +105,7 @@ repage.show = function (path, params, dispatch) {
 /**
  * replace() : page.replace(path, [params])
  * Works like `page(path)`, but replaces the current state instead of pushing
- * it. Great for form submission pages.
+ * it. Great for form submission pages. *(Only in repage.js)*
  *
  *     $('.submit').on('click', function () {
  *       $.post('/submit', function (article) {
@@ -122,7 +122,7 @@ repage.replace = function (path, params, init, dispatch) {
 
 /**
  * len : page.len
- * Number of pages navigated to.
+ * Number of pages navigated to. *(Only in repage.js)*
  *
  *     page.len == 0;
  *     page('/login');
@@ -134,6 +134,7 @@ repage.len = 0;
 /**
  * uri() : page.uri(path, options)
  * Builds a URI path with dynamic parameters, mimicking Express's conventions.
+ * *(Only in repage.js)*
  *
  *     page.uri('/api/users/:id', { id: 24 });
  *     => "/api/users/24"
@@ -163,6 +164,7 @@ repage.uri = function(path, options) {
 /**
  * querystring() : page.querystring(data)
  * Converts an object into a query string.
+ * *(Only in repage.js)*
  *
  *     page.querystring({ name: 'john smith', count: 3 })
  *     => "name=john%20smith&count=3"
@@ -203,6 +205,7 @@ repage.querystring = function (options, prefix) {
  * back() : page.back([path])
  * Goes back. If `path` is given, it will navigate to that instead when
  * there's no page to go back to.
+ * *(Only in repage.js)*
  *
  *     document.getElementById('back').onclick = function() {
  *       // either goes back, or returns to the homepage when there's
@@ -223,6 +226,7 @@ repage.back = function(path, params) {
  * redirect() : page.redirect(path, params)
  * Navigates to `path`. Works like `page.show()` or `page.replace()`, but
  * suitable to be used inside a route.
+ * *(Only in repage.js)*
  *
  *     page('/login', function (ctx) {
  *       page.redirect('/sessions/new');
