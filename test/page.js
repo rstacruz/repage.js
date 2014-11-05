@@ -1,5 +1,5 @@
+var page, expect, old = {};
 var isNode = typeof process === 'object';
-var page;
 
 if (isNode) {
   expect = require('chai').expect;
@@ -23,9 +23,7 @@ describe('page.js tests', function () {
 
   after(function () {
     page.teardown();
-    if (!isNode) {
-      history.replaceState("", {}, old.location);
-    }
+    if (!isNode) history.replaceState("", {}, old.location);
   });
 
   describe('ctx.querystring', function(){

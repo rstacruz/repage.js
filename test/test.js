@@ -23,9 +23,7 @@ describe('repage.js', function () {
 
   after(function () {
     page.teardown();
-    if (!isNode) {
-      history.replaceState("", {}, old.location);
-    }
+    if (!isNode) history.replaceState("", {}, old.location);
   });
 
   describe('ctx.querystring', function () {
