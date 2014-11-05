@@ -3,6 +3,11 @@
   "version": "2.0.0",
   "description": "Extensions for page.js, a client-side micro-router",
   "main": "index.js",
+  "keywords": [
+    "express",
+    "router",
+    "client-side"
+  ],
   "scripts": {
     "test": "mocha",
     "prepublish": "mdextract -u Readme.md; browserify index.js --standalone page -o repage.js"

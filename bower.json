@@ -1,0 +1,35 @@
+{
+  "name": "repage.js",
+  "main": "index.js",
+  "version": "2.0.0",
+  "homepage": "https://github.com/rstacruz/repage.js",
+  "authors": [
+    "Rico Sta. Cruz <hi@ricostacruz.com>"
+  ],
+  "description": "Extensions to page.js, a tiny client-side router",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "page",
+    "route",
+    "router",
+    "routes",
+    "pushState"
+  ],
+  "ignore": [
+    ".gitignore",
+    ".npmignore",
+    ".travis.yml",
+    "component.json",
+    "bower.json",
+    "examples",
+    "History.md",
+    "Makefile",
+    "package.json",
+    "Readme.md",
+    "test"
+  ],
+  "license": "MIT"
+}
