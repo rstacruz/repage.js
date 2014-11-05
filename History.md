@@ -1,3 +1,7 @@
+## 2.0.2 / 2014-11-05
+
+ * Make `page.sameOrigin` and `page.base` available.
+
 ## 2.0.1 / 2014-11-05
 
  * Implement `page.teardown()` to uninitialize repage.js. Useful for tests.
