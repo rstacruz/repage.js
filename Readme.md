@@ -212,6 +212,11 @@ page('/dashboard', function (ctx) {
 });
 ```
 
+### teardown()
+> `page.teardown()`
+
+Removes all traces of repage.js. Mostly useful in tests.
+
 <!-- /include -->
 
 <br>
