@@ -25,10 +25,12 @@ page('*', notfound);
 page();
 ```
 
+<br>
+
 ## Quick reference
 
 The new `page` object implements all the API of [visionmedia/page.js], plus other
-convenient extensions described below. As such, refer to the page.js API first.
+convenient extensions described later. As such, refer to the page.js API first.
 
 ```js
 // routing:
@@ -46,7 +48,7 @@ These are features only available in repage.js:
 ```js
 page('/user/:id', { id: 20 })           // navigates to /user/20
 page('/search', { q: 'hello' })         // navigates to /search?q=hello
-page.replace('/search', { q: 'hello' }) // navigates to /user/20 by replacing
+page.replace('/search', { q: 'hello' }) // navigates by replacing
 
 page.uri('/user/:id', { id: 20 })       // returns "/user/20" (string)
 page.redirect('/users')                 // redirects to /users from a route
