@@ -22,11 +22,11 @@ var setImmediate = this.setImmediate ?
 
 function repage (path, fn) {
   // page(function)
-  if ('function' == typeof path) {
+  if ('function' === typeof path) {
     return repage('*', path);
   }
   // page('/x', function)
-  if ('function' == typeof fn) {
+  if ('function' === typeof fn) {
     page(path, fn);
   }
   // page('/x', { .. })
