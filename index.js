@@ -27,7 +27,7 @@ function repage (path, fn) {
   }
   // page('/x', function)
   if ('function' === typeof fn) {
-    page(path, fn);
+    page.apply(page, arguments);
   }
   // page('/x', { .. })
   else if ('string' === typeof path) {
