@@ -1,4 +1,4 @@
-## 2.1.0 / 2017-11-21
+## 2.1.1 / 2017-11-21
 
  * Re-published as `@rstacruz/repage` (previously known as `repage`). No functional changes.
 
