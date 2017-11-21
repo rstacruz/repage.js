@@ -1,3 +1,7 @@
+## 2.1.0 / 2017-11-21
+
+ * Re-published as `@rstacruz/repage` (previously known as `repage`). No functional changes.
+
 ## 2.0.2 / 2014-11-05
 
  * Make `page.sameOrigin` and `page.base` available.

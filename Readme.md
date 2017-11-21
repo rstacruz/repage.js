@@ -67,15 +67,15 @@ page.back()                             // goes back, or returns home if availab
 The npm version lists [page.js] as a `dependency`, while the bower version ships as a standalone .js file.
 
 ```sh
-$ npm install --save repage
-$ bower install --save repage
+$ npm install --save @rstacruz/repage
+$ bower install --save @rstacruz/repage
 ```
 
-[![npm version](http://img.shields.io/npm/v/repage.svg?style=flat)](https://npmjs.org/package/repage "View this project on npm")
+[![npm version](http://img.shields.io/npm/v/@rstacruz/repage.svg?style=flat)](https://npmjs.org/package/repage "View this project on npm")
 
 ### Standalone
 
-[version]: https://cdn.rawgit.com/rstacruz/repage.js/v2.0.2/repage.js
+[version]: https://cdn.rawgit.com/rstacruz/repage.js/v2.1.0/repage.js
 
 Download or hotlink: __[repage.js][version]__. It will then be exported as `window.page`.
 
